@@ -11,6 +11,10 @@ const pool = mysql2.createPool({
     dateStrings: 'date'
     });
 
+export async function CheckDatabaseConnection() {
+    return pool.getConnection()
+}
+
 export async function GetAllHouses() {
     try {
         const query = 'SELECT * FROM Houses'

@@ -440,6 +440,17 @@ app.delete("/customercosts/:id/:h_id/:total", function (req, res) {
     })
 })
 
+app.get("/", function (req, res) {
+  sql.CheckDatabaseConnection()
+    .then( response => {
+      res.send(response)
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+})
+
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`)

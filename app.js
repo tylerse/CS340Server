@@ -1,5 +1,11 @@
 import express, { response } from 'express';
 import * as sql from './SqlHandler.js'
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express()
 const port = process.env.PORT || 3030;
@@ -9,8 +15,16 @@ app.use(express.urlencoded({
    extended: true
 }));
 
-// Define a route handler for HTTP GET requests
 
+
+// Define a route handler for HTTP GET requests
+app.use(express.static(path.join(__dirname ,'public')))
+
+
+app.get('/' , function(req,res) {
+  res.sendFile(path.join(__dirname, "public", "index.html"))
+})
+console.log(__dirname ,'/' ,'public')
 
 
 // Cost REST =================================================

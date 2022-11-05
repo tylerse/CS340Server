@@ -1,19 +1,15 @@
 import mysql2 from 'mysql2/promise'
 
 const pool = mysql2.createPool({
-    host: 'cs340.czoduhyfntgh.us-west-2.rds.amazonaws.com',
-    user: 'root',
-    password: 'Hulahoops55!!!!!!!!',
-    database: 'CS340',
+    host: 'sql.freedb.tech',
+    user: 'freedb_seanpaultyler',
+    password: 'W!ZmtQnVgxDy%@5',
+    database: 'freedb_cs340database',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
     dateStrings: 'date'
     });
-
-export async function CheckDatabaseConnection() {
-    return pool.getConnection()
-}
 
 export async function GetAllHouses() {
     try {
@@ -120,23 +116,6 @@ export async function CreateNewCost(data){
     } 
 }
 
-export async function UpdateCost(id, data){
-    try {
-        const query = `UPDATE Costs
-                        SET CostDescription = ?
-                        WHERE CostID = ?`
-        const result = await pool.query(query, [
-            data["CostDescription"],
-            id
-        ])
-        return result;
-    }
-    catch (err) {
-        console.log(err)
-        return {"Error": "Error processing request"}
-    } 
-}
-
 export async function UpdateCustomer(id, data){
     try {
         const query = `UPDATE Customers
@@ -166,51 +145,6 @@ export async function UpdateHouse(id, data){
             data["HouseSize"],
             data["PatioUpgrade"],
             data["GarageUpgrade"],
-            id
-        ])
-        return result;
-    }
-    catch (err) {
-        console.log(err)
-        return {"Error": "Error processing request"}
-    } 
-}
-
-export async function UpdateInvestor(id, data){
-    try {
-        const query = `UPDATE Investors
-                        SET InvestorName = ?, InvestorBirthday = ?, InvestAmount = ?, InvestName = ?, Profit = ?, ProfitName = ?
-                        WHERE InvestorID = ?`
-        const result = await pool.query(query, [
-            data["InvestorName"],
-            data["InvestorBirthday"],
-            data["InvestAmount"],
-            data["InvestName"],
-            data["Profit"],
-            data["ProfitName"],
-            id
-        ])
-        return result;
-    }
-    catch (err) {
-        console.log(err)
-        return {"Error": "Error processing request"}
-    } 
-}
-
-export async function UpdateEmployee(id, data){
-    try {
-        const query = `UPDATE Employees
-                        SET EmployeeFirstname = ?, EmployeeLastname = ?, EmployeeSalary = ?, 
-                        EmployeeBirthday = ?, EmployeeInsurance = ?, Employed = ?
-                        WHERE EmployeeID = ?`
-        const result = await pool.query(query, [
-            data["EmployeeFirstname"],
-            data["EmployeeLastname"],
-            data["EmployeeSalary"],
-            data["EmployeeBirthday"],
-            data["EmployeeInsurance"],
-            data["Employed"],
             id
         ])
         return result;

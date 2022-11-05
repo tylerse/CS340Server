@@ -2,7 +2,7 @@ import express, { response } from 'express';
 import * as sql from './SqlHandler.js'
 
 const app = express()
-const port = process.env.PORT || 8000
+const port = 8000
 
 app.use(express.json())
 app.use(express.urlencoded({
@@ -25,14 +25,6 @@ app.get("/costs", function (req, res) {
     .catch(function (error) {
       console.log(error)
     })
-})
-
-app.put("/cost/:id", function(req, res) {
-  const id = req.params.id
-  console.log("Received updated cost information.")
-  console.log(req.body)
-  const response = sql.UpdateCost(id, req.body);
-  res.send(response);
 })
 
 app.post("/cost", function(req, res) {
@@ -188,14 +180,6 @@ app.get("/investorcosts/", function (req, res) {
   
 })
 
-app.put("/investor/:id", function(req, res) {
-  const id = req.params.id
-  console.log("Received updated investor information.")
-  console.log(req.body)
-  const response = sql.UpdateInvestor(id, req.body);
-  res.send(response);
-})
-
 app.post("/investorcosts/:id/:i_id/:total", function (req, res) {
   const id = req.params.id
   const i_id = req.params.i_id
@@ -246,16 +230,6 @@ app.get("/employees", function (req, res) {
        res.json({"error": error});
     })
 });
-
-app.put("/employee/:id", function(req, res) {
-  const id = req.params.id
-  console.log("Received updated employee information.")
-  console.log(req.body)
-  const response = sql.UpdateEmployee(id, req.body);
-  res.send(response);
-})
-
-
 
 app.get("/employeecosts/", function (req, res) {
 
@@ -431,17 +405,6 @@ app.delete("/customercosts/:id/:h_id/:total", function (req, res) {
   const total = req.params.total
   console.log(`Received delete request for customer #${id} and cost id #${h_id} and total ${total}`)
   sql.DeleteCustomerCosts(id, h_id, total)
-    .then( response => {
-      res.send(response)
-      console.log(response)
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
-})
-
-app.get("/", function (req, res) {
-  sql.CheckDatabaseConnection()
     .then( response => {
       res.send(response)
       console.log(response)

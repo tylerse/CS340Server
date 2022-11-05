@@ -3,18 +3,15 @@
   "version": "1.0.0",
   "description": "A backend server for interfacing with the CS340 Project database",
   "main": "app.js",
-  "type": "module",
+  "type":"module",
   "scripts": {
-    "start": "node forever.js",
-    "forever": "node forever.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sean Tyler",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "forever-monitor": "^3.0.3",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.20"
-  }
+  }  
 }

@@ -128,10 +128,40 @@ app.put("/house/:id", function(req, res) {
   res.send(response);
 })
 
-app.get("/housecosts/:id", function (req, res) {
-  const id = req.params.id
+app.get("/housecosts/", function (req, res) {
+  const id = req.query.HouseID
   console.log(`Received request for Costs related to house ID #${id}`)
-  sql.GetHouseCosts(id)
+  sql.GetHouseCostsByHouse(id)
+    .then( response => {
+      res.send(response)
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+})
+
+app.delete("/housecosts/:id/:h_id/:total", function (req, res) {
+  const id = req.params.id
+  const h_id = req.params.h_id
+  const total = req.params.total
+  console.log(`Received delete request for house #${id} and cost id #${h_id} and total ${total}`)
+  sql.DeleteHouseCosts(id, h_id, total)
+    .then( response => {
+      res.send(response)
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+})
+
+app.post("/housecosts/:id/:i_id/:total", function (req, res) {
+  const id = req.params.id
+  const i_id = req.params.i_id
+  const total = req.params.total
+  console.log(`Received post request for house #${id} and cost id #${i_id} and total ${total}`)
+  sql.InsertHouseCosts(id, i_id, total)
     .then( response => {
       res.send(response)
       console.log(response)
@@ -370,7 +400,7 @@ app.delete("/customerhouses/:id/:h_id", function (req, res) {
 
 // CUSTOMER COSTS
 
-app.get("/customercosts/  ", function (req, res) {
+app.get("/customercosts/", function (req, res) {
   const id = req.query.CostID
   const cid = req.query.CustomerID
 

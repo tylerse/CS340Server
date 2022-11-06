@@ -24,7 +24,7 @@ export async function GetAllHouses() {
 
 export async function GetAllCosts() {
     try {
-        const query = 'SELECT * FROM Costs'
+        const query = `SELECT * FROM Costs`
         const result = await pool.query(query)
         return result;
     }
@@ -155,7 +155,7 @@ export async function UpdateHouse(id, data){
     } 
 }
 
-export async function GetHouseCosts(id){
+export async function GetHouseCostsByHouse(id){
     try {
         const query = `SELECT HouseCosts.HouseID, HouseCosts.CostID, HouseCosts.Total, Costs.CostDescription FROM HouseCosts
                         JOIN Costs ON HouseCosts.CostID=Costs.CostID
@@ -194,6 +194,18 @@ export async function InsertInvestorCosts(id, i_id, total){
 export async function InsertEmployeeCosts(id, i_id, total){
     try {
         const query = `INSERT INTO EmployeeCosts (EmployeeID, CostID, Total)
+                        VALUES (?,?,?)`
+        const result = await pool.query(query, [id, i_id, total])
+        return result;
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
+export async function InsertHouseCosts(id, i_id, total){
+    try {
+        const query = `INSERT INTO HouseCosts (HouseID, CostID, Total)
                         VALUES (?,?,?)`
         const result = await pool.query(query, [id, i_id, total])
         return result;
@@ -375,6 +387,19 @@ export async function DeleteEmployeeCosts(id, h_id, total){
     try {
         const query = `DELETE FROM EmployeeCosts
                        WHERE EmployeeID = ? AND CostID = ? AND Total = ?`
+        const result = await pool.query(query, [id, h_id, total])
+        console.log(result)
+        return result;
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
+export async function DeleteHouseCosts(id, h_id, total){
+    try {
+        const query = `DELETE FROM HouseCosts
+                       WHERE HouseID = ? AND CostID = ? AND Total = ?`
         const result = await pool.query(query, [id, h_id, total])
         console.log(result)
         return result;

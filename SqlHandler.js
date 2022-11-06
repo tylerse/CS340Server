@@ -155,6 +155,50 @@ export async function UpdateHouse(id, data){
     } 
 }
 
+export async function UpdateInvestor(id, data){
+    try {
+        const query = `UPDATE Investors
+                        SET InvestorName = ?, InvestorBirthday = ?, InvestAmount = ?, InvestName = ?, Profit = ?, ProfitName = ?
+                        WHERE InvestorID = ?`
+        const result = await pool.query(query, [
+            data["InvestorName"],
+            data["InvestorBirthday"],
+            data["InvestAmount"],
+            data["InvestName"],
+            data["Profit"],
+            data["ProfitName"],
+            id
+        ])
+        return result;
+    }
+    catch (err) {
+        console.log(err)
+        return {"Error": "Error processing request"}
+    } 
+}
+
+export async function UpdateEmployee(id, data){
+    try {
+        const query = `UPDATE Employees
+                        SET EmployeeFirstname = ?, EmployeeLastname = ?, EmployeeSalary = ?, EmployeeBirthday = ?, EmployeeInsurance = ?, Employed = ?
+                        WHERE EmployeeID = ?`
+        const result = await pool.query(query, [
+            data["EmployeeFirstname"],
+            data["EmployeeLastname"],
+            data["EmployeeSalary"],
+            data["EmployeeBirthday"],
+            data["EmployeeInsurance"],
+            data["Employed"],
+            id
+        ])
+        return result;
+    }
+    catch (err) {
+        console.log(err)
+        return {"Error": "Error processing request"}
+    } 
+}
+
 export async function GetHouseCostsByHouse(id){
     try {
         const query = `SELECT HouseCosts.HouseID, HouseCosts.CostID, HouseCosts.Total, Costs.CostDescription FROM HouseCosts

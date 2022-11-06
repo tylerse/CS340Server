@@ -192,6 +192,14 @@ app.get("/investors", function (req, res) {
     })
 });
 
+app.put("/investor/:id", function(req, res) {
+  const id = req.params.id
+  console.log("Received updated investor information.")
+  console.log(req.body)
+  const response = sql.UpdateInvestor(id, req.body);
+  res.send(response);
+})
+
 app.get("/investorcosts/", function (req, res) {
 
   const id = req.query.InvestorID
@@ -274,6 +282,14 @@ app.get("/employees", function (req, res) {
        res.json({"error": error});
     })
 });
+
+app.put("/employee/:id", function(req, res) {
+  const id = req.params.id
+  console.log("Received updated employee information.")
+  console.log(req.body)
+  const response = sql.UpdateEmployee(id, req.body);
+  res.send(response);
+})
 
 app.get("/employeecosts/", function (req, res) {
 

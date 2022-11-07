@@ -69,7 +69,7 @@ export async function GetAllEmployees() {
 export async function CreateNewCustomer(data){
     try {
         const query = `INSERT INTO Customers (CustomerFirstname, CustomerLastname, Paid, HouseOrdered)
-                        VALUES (?,?,?,?,?)`
+                        VALUES (?,?,?,?)`
         const result = await pool.query(query, [
             data["CustomerFirstname"],
             data["CustomerLastname"],
